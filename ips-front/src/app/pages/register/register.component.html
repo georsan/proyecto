@@ -1,0 +1,55 @@
+<div class="register-container">
+    <div class="icon">
+        <img src="./assets/ips.jpg" alt="Logo icon">
+    </div>
+    <form [formGroup]="registerForm">
+        <input formControlName="username" type="text" placeholder="Username" >
+        @if(registerForm.get('username')?.hasError('required')){
+            <span>El Username es requerido</span>
+    } @else if (registerForm.get('username')?.hasError('email')){
+        <span>El Username debe ser un email valido</span>
+    }
+        <input formControlName="password" type="password" placeholder="Password" >
+        @if(registerForm.get('password')?.hasError('required')){
+            <span>La password es requerida</span>
+    }@else if(registerForm.get('password')?.hasError('pattern')){
+        <span>La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula.</span>
+    }
+    
+
+    <input formControlName="first_name" type="text" placeholder="Nombre" >
+        @if(registerForm.get('first_name')?.hasError('required')){
+            <span>El nombre es requerido</span>
+    } 
+    <input formControlName="last_name" type="text" placeholder="Apellido" >
+    @if(registerForm.get('last_name')?.hasError('required')){
+        <span>El Apellido es requerido</span>
+    } 
+    <input formControlName="age" type="number" placeholder="Edad" >
+    @if(registerForm.get('age')?.hasError('required')){
+        <span>La edad es requerida</span>
+    } @else if(registerForm.get('age')?.hasError('pattern')){
+        <span>La edad debe esta entre 0 y 100 años</span>
+    }
+    
+    <select  formControlName="id_address"   >
+        <option value='' disabled selected hidden >elija un departamento</option>
+        @for( departament of departaments;track departament.id){
+            <option value="{{departament.id}}">{{departament.name}}</option>
+        }
+    </select>
+    @if(registerForm.get('id_address')?.hasError('required')){
+        <span>El departamento es requerido</span>
+    }
+
+
+
+
+        @if(hasErrorRegister){
+            <span>Ha ocurrido un error</span>
+    }
+
+        <button (click)="register()"  [disabled]="registerForm.invalid" type="submit" class="login-btn">Guardar</button>
+        <button class="atras"  type="button" routerLink="/login" >Atras</button>
+    </form>
+</div>

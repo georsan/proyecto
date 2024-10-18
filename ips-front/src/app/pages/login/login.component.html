@@ -1,0 +1,30 @@
+<div class="login-container">
+    <div class="icon">
+        <img src="./assets/ips.jpg" alt="Logo icon">
+    </div>
+    <form [formGroup]="loginForm">
+        <input formControlName="username" type="text" placeholder="Username" >
+        @if(loginForm.get('username')?.hasError('required')){
+            <span>El Username es requerido</span>
+    } @else if (loginForm.get('username')?.hasError('email')){
+        <span>El Username debe ser un email valido</span>
+    }
+        <input formControlName="password" type="password" placeholder="Password" >
+        @if(loginForm.get('password')?.hasError('required')){
+            <span>La password es requerida</span>
+    }
+        <div class="stay-logged">
+
+            <div>
+                <input type="checkbox" id="stay-logged">
+            <label for="stay-logged">STAY LOGGED IN</label>
+            </div>
+            <p routerLink="/register">Registrate</p>
+        </div>
+        @if(hasErrorlogin){
+            <span>Usuario o contraseña incorrectos</span>
+    }
+
+        <button (click)="login()"  [disabled]="loginForm.invalid" type="submit" class="login-btn">LOGIN</button>
+    </form>
+</div>
